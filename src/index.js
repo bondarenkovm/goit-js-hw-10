@@ -26,37 +26,45 @@ function renderMarkup(data) {
     Notify.info('Too many matches found. Please enter a more specific name.');
   }
   if ((data.length <= 10) & (data.length > 1)) {
-    const markup = data
-      .map(dat => {
-        return `
-        <li style='list-style: none; margin-bottom:10px'>
-          <img src='${dat.flags.svg}' alt='flags' width='50'/>
-          <b style='margin-left:10px; font-size:15px'>${dat.name.official}</b>
-        </li>`;
-      })
-      .join('');
-    ul.innerHTML = markup;
+    renderMarkupCountryList(data);
   }
   if (data.length === 1) {
-    const markup = data
-      .map(dat => {
-        // const values = Object.values(dat.languages);
-        return `
-        <img src='${dat.flags.svg}' alt='flags' width='100'/>
-        <b style='margin-left:10px; font-size: 30px'>${dat.name.official}</b>
-        <p style='font-size: 20px'><b>Capital:</b> ${dat.capital}</p>
-        <p style='font-size: 20px'><b>Population:</b> ${dat.population}</p>
-        <p style='font-size: 20px'><b>Languages:</b> ${Object.values(
-          dat.languages
-        )}</p>`;
-      })
-      .join('');
-    div.innerHTML = markup;
+    renderMarkupCountryInfo(data);
   }
-  //   console.log(data);
+  // console.log(data);
 }
 
 function clearCountry() {
   ul.innerHTML = '';
   div.innerHTML = '';
+}
+
+function renderMarkupCountryList(fields) {
+  const markup = fields
+    .map(({ flags, name }) => {
+      return `
+        <li style='list-style: none; margin-bottom:10px'>
+          <img src='${flags.svg}' alt='flags' width='50'/>
+          <b style='margin-left:10px; font-size:15px'>${name.official}</b>
+        </li>`;
+    })
+    .join('');
+  ul.innerHTML = markup;
+}
+
+function renderMarkupCountryInfo(fields) {
+  const markup = fields
+    .map(({ flags, name, capital, population, languages }) => {
+      // const values = Object.values(languages);
+      return `
+        <img src='${flags.svg}' alt='flags' width='100'/>
+        <b style='margin-left:10px; font-size: 30px'>${name.official}</b>
+        <p style='font-size: 20px'><b>Capital:</b> ${capital}</p>
+        <p style='font-size: 20px'><b>Population:</b> ${population}</p>
+        <p style='font-size: 20px'><b>Languages:</b> ${Object.values(
+          languages
+        )}</p>`;
+    })
+    .join('');
+  div.innerHTML = markup;
 }
