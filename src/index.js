@@ -43,9 +43,9 @@ function renderMarkupCountryList(fields) {
   const markup = fields
     .map(({ flags, name }) => {
       return `
-        <li style='list-style: none; margin-bottom:10px'>
-          <img src='${flags.svg}' alt='flags' width='50'/>
-          <b style='margin-left:10px; font-size:15px'>${name.official}</b>
+        <li style='list-style: none; margin-bottom:10px; display: flex'>
+          <img src='${flags.svg}' alt='flags' width='80'/>
+          <p style='margin-left:20px; font-size:15px'><b>${name.official}</b></p>
         </li>`;
     })
     .join('');
@@ -56,9 +56,10 @@ function renderMarkupCountryInfo(fields) {
   const markup = fields
     .map(({ flags, name, capital, population, languages }) => {
       // const values = Object.values(languages);
-      return `
-        <img src='${flags.svg}' alt='flags' width='100'/>
-        <b style='margin-left:10px; font-size: 30px'>${name.official}</b>
+      return `<div style='display: flex'>
+        <img src='${flags.svg}' alt='flags' width='120'/>
+        <p style='margin-left:10px; font-size: 30px'><b>${name.official}</b></p>
+        </div>
         <p style='font-size: 20px'><b>Capital:</b> ${capital}</p>
         <p style='font-size: 20px'><b>Population:</b> ${population}</p>
         <p style='font-size: 20px'><b>Languages:</b> ${Object.values(
